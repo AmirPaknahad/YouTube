@@ -1,0 +1,22 @@
+.button_next {
+    -fx-background-color : #0336ff;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-pref-Width: 105;
+    -fx-pref-Height: 40;
+}
+.button_create_account {
+    -fx-text-fill-color : #0481ff;
+    -fx-background-color : Transparent;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-pref-Width: 155;
+    -fx-pref-Height: 40;
+}
+.button_create_account:hover {
+    -fx-background-color : #F3F3F3;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-pref-Width: 155;
+    -fx-pref-Height: 40;
+}
