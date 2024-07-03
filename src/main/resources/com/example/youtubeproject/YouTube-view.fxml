@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtubeproject.YouTubeController">
    <children>
-      <AnchorPane prefHeight="720.0" prefWidth="1080.0" visible="false">
+      <AnchorPane fx:id="signInPage1" prefHeight="720.0" prefWidth="1080.0" visible="false">
          <children>
             <ImageView fitHeight="720.0" fitWidth="1080.0">
                <image>
@@ -31,34 +32,34 @@
                   <Font size="40.0" />
                </font>
             </Text>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0">
+            <ImageView fx:id="sInPage1ErrorI" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
                <image>
                   <Image url="@../../../381599_error_icon.png" />
                </image>
             </ImageView>
+            <Button fx:id="sInPage1Next" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" onAction="#sInPage1NextClick" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="135.0" layoutY="174.0">
                <image>
                   <Image url="@../../../pngwing.com-2.png" />
                </image>
             </ImageView>
-            <TextField layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Email" />
-            <Button layoutX="616.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_create_account" stylesheets="@signIn.css" text="Create account" textFill="#0481ff">
+            <TextField fx:id="sInPageEmail" layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Email" />
+            <Button fx:id="sInPage1CreateAcc" layoutX="616.0" layoutY="401.0" mnemonicParsing="false" onAction="#sInPage1CreateAccClick" styleClass="button_create_account" stylesheets="@signIn.css" text="Create account" textFill="#0481ff">
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button layoutX="796.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Text fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couldn't  find your account" />
-            <ImageView fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0">
+            <Text fx:id="sInPage1ErrorT" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couldn't  find your account" visible="false" />
+            <ImageView fx:id="sInPage1Back" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0">
                <image>
                   <Image url="@../../../7etpgol5vni7a29jfbecupgimi.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="720.0" prefWidth="1080.0" visible="false">
+      <AnchorPane fx:id="createAccPage1" prefHeight="720.0" prefWidth="1080.0" visible="false">
          <children>
             <ImageView fitHeight="720.0" fitWidth="1080.0">
                <image>
@@ -75,7 +76,7 @@
                   <Font size="40.0" />
                </font>
             </Text>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0">
+            <ImageView fx:id="CreateAcc1ErrorI" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
                <image>
                   <Image url="@../../../381599_error_icon.png" />
                </image>
@@ -85,27 +86,27 @@
                   <Image url="@../../../vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.png" />
                </image>
             </ImageView>
-            <TextField layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="173.0" promptText="First Name" />
-            <Button layoutX="796.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
+            <TextField fx:id="firstNameCreateAcc" layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="173.0" promptText="First Name" />
+            <Button fx:id="CreateAcc1Next" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" onAction="#CreateAcc1NextClick" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Text fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter first name" />
+            <Text fx:id="CreateAcc1ErrorT" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter first name" visible="false" />
             <Text fill="WHITE" layoutX="152.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
-            <TextField layoutX="739.0" layoutY="293.0" prefHeight="41.0" prefWidth="173.0" promptText="Last Name (optional)" />
-            <ImageView fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0">
+            <TextField fx:id="lastNameCreateAcc" layoutX="739.0" layoutY="293.0" prefHeight="41.0" prefWidth="173.0" promptText="Last Name (optional)" />
+            <ImageView fx:id="CreateAcc1Back" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#CreateAcc1BackClick">
                <image>
                   <Image url="@../../../7etpgol5vni7a29jfbecupgimi.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="720.0" prefWidth="1080.0" visible="false">
+      <AnchorPane fx:id="createAccPage2" prefHeight="720.0" prefWidth="1080.0" visible="false">
          <children>
             <ImageView fitHeight="720.0" fitWidth="1080.0">
                <image>
@@ -122,12 +123,12 @@
                   <Font size="40.0" />
                </font>
             </Text>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0">
+            <ImageView fx:id="CreateAcc2ErrorI" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
                <image>
                   <Image url="@../../../381599_error_icon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0">
+            <ImageView fx:id="CreateAcc2Back" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#CreateAcc2BackClick">
                <image>
                   <Image url="@../../../7etpgol5vni7a29jfbecupgimi.png" />
                </image>
@@ -137,23 +138,23 @@
                   <Image url="@../../../vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.png" />
                </image>
             </ImageView>
-            <TextField layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="173.0" promptText="Username" />
-            <Button layoutX="796.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
+            <Button fx:id="CreateAcc2Next" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" onAction="#CreateAcc2NextClick" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Text fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username already exists" />
+            <TextField fx:id="UserNameCreateAcc" layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="173.0" promptText="Username" />
+            <Text fx:id="CreateAcc2ErrorT" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username already exists" visible="false" />
             <Text fill="WHITE" layoutX="152.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="41.0" layoutX="739.0" layoutY="293.0" stroke="#8d8a8a" strokeType="INSIDE" width="173.0" />
-            <PasswordField layoutX="739.0" layoutY="301.0" promptText="Password" style="-fx-background-color: Transparent;" />
+            <PasswordField fx:id="PassWordCreateAcc" layoutX="739.0" layoutY="301.0" promptText="Password" style="-fx-background-color: Transparent;" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="720.0" prefWidth="1080.0" visible="false">
+      <AnchorPane fx:id="signInPage2" prefHeight="720.0" prefWidth="1080.0" visible="false">
          <children>
             <ImageView fitHeight="720.0" fitWidth="1080.0">
                <image>
@@ -170,7 +171,7 @@
                   <Font size="40.0" />
                </font>
             </Text>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0">
+            <ImageView fx:id="sInPage2ErrorI" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
                <image>
                   <Image url="@../../../381599_error_icon.png" />
                </image>
@@ -180,29 +181,134 @@
                   <Image url="@../../../pngwing.com-2.png" />
                </image>
             </ImageView>
-            <Button layoutX="616.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_create_account" stylesheets="@signIn.css" text="Create account" textFill="#0481ff">
+            <Button fx:id="sInPage2CreateAcc" layoutX="616.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_create_account" stylesheets="@signIn.css" text="Create account" textFill="#0481ff">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="796.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
+            <Button fx:id="sInPage2Next" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Text fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couldn't  find your account" />
-            <ImageView fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0">
+            <Text fx:id="sInPage2ErrorT" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong password. Try again" visible="false" />
+            <ImageView fx:id="sInPage2Back" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0">
                <image>
                   <Image url="@../../../7etpgol5vni7a29jfbecupgimi.png" />
                </image>
             </ImageView>
-            <PasswordField layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Password" />
+            <PasswordField fx:id="sInPage2Pass" layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Password" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;">
+      <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" visible="false">
          <children>
             <HBox layoutX="80.0" prefHeight="65.0" prefWidth="1000.0" />
             <VBox layoutY="80.0" prefHeight="640.0" prefWidth="65.0" />
+            <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="12.0" layoutY="29.0">
+               <image>
+                  <Image url="@../../../icons8-menu-512.png" />
+               </image>
+            </ImageView>
+            <AnchorPane prefHeight="720.0" prefWidth="270.0" style="-fx-background-color: #181818;">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="12.0" layoutY="29.0">
+                     <image>
+                        <Image url="@../../../icons8-menu-512.png" />
+                     </image>
+                  </ImageView>
+                  <ScrollPane layoutY="80.0" prefHeight="640.0" prefWidth="270.0" style="-fx-background-color: #181818;">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1198.0" prefWidth="254.0" style="-fx-background-color: #181818;">
+                           <children>
+                              <VBox prefHeight="144.0" prefWidth="256.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Home" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Shorts" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                 </children></VBox>
+                              <VBox layoutY="141.0" prefHeight="284.0" prefWidth="256.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Home" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Shorts" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="422.0" prefHeight="655.0" prefWidth="256.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#181818" height="10.0" stroke="#181818" strokeType="INSIDE" width="256.0" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="    Explore">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#181818" height="10.0" stroke="#181818" strokeType="INSIDE" width="256.0" />
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Home" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Shorts" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Home" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Shorts" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
          </children></AnchorPane>
+      <AnchorPane fx:id="createAccPage21" prefHeight="720.0" prefWidth="1080.0">
+         <children>
+            <ImageView fitHeight="720.0" fitWidth="1080.0">
+               <image>
+                  <Image url="@../../../1134392.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="154.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your Email" wrappingWidth="146.3232421875">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="150.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create a YouTube">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="CreateAcc2ErrorI1" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
+               <image>
+                  <Image url="@../../../381599_error_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="CreateAcc2Back1" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#CreateAcc2BackClick">
+               <image>
+                  <Image url="@../../../7etpgol5vni7a29jfbecupgimi.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="127.0" layoutY="186.0">
+               <image>
+                  <Image url="@../../../vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="CreateAcc2Next1" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" onAction="#CreateAcc2NextClick" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Text fx:id="CreateAcc2ErrorT1" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Valid Email" visible="false" />
+            <Text fill="WHITE" layoutX="152.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Text>
+            <TextField layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Email" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

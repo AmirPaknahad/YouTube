@@ -1,0 +1,15 @@
+.menu_buttons {
+    -fx-background-color : Transparent;
+    -fx-background-radius: 10;
+    -fx-pref-Width: 252;
+    -fx-pref-Height: 48;
+}
+.menu_buttons:hover {
+    -fx-background-color : #727272;
+}
+
+.vbox {
+    -fx-background-color : #242424;
+    -fx-border-color : #7F7F7F;
+    -fx-border-width : 2px;
+}
