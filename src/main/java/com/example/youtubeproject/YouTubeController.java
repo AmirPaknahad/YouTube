@@ -2,7 +2,6 @@ package com.example.youtubeproject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -31,7 +30,7 @@ public class YouTubeController {
     private ImageView sInPage1Back;
 
 
-    //signIn page1 variables
+    //signIn page2 variables
     @FXML
     private AnchorPane signInPage2;
     @FXML
@@ -95,14 +94,19 @@ public class YouTubeController {
     @FXML
     private ImageView CreateAcc3Back;
     // home page variables
+    @FXML
     private AnchorPane homePage;
-
-
-
+    @FXML
+    private ImageView hpBurgerMenuO;
+    @FXML
+    private ImageView hpBurgerMenuC;
+    @FXML
+    private AnchorPane hpLeftMenu;
 
     //signIn page1 functions
     @FXML
     protected void sInPage1CreateAccClick() {
+        account = new Account(UUID.randomUUID(), "", "", "", "", "");;
         sInPageEmail.clear();
         signInPage1.setVisible(false);
         createAccPage1.setVisible(true);
@@ -112,6 +116,7 @@ public class YouTubeController {
         String inputEmail = sInPageEmail.getText();
         Account accountSIngPage = DatabaseManager.getAccountByEmail(inputEmail);
         if (accountSIngPage != null) {
+            account = accountSIngPage;
             sInPage1ErrorT.setVisible(false);
             sInPage1ErrorI.setVisible(false);
             signInPage1.setVisible(false);
@@ -127,9 +132,25 @@ public class YouTubeController {
     }
 
     //signIn page2 functions
+    @FXML
     protected void sInPage2CreateAccClick() {
+        account = new Account(UUID.randomUUID(), "", "", "", "", "");
+        sInPageEmail.clear();
+        sInPage2Pass.clear();
+        signInPage2.setVisible(false);
+        createAccPage1.setVisible(true);
     }
+    @FXML
     protected void sInPage2NextClick() {
+        String inputPassWord = sInPage2Pass.getText();
+        if (account.getPassWord().equals(inputPassWord)) {
+            signInPage2.setVisible(false);
+            showHomePage();
+        }
+        else {
+            sInPage2ErrorT.setVisible(true);
+            sInPage2ErrorI.setVisible(true);
+        }
     }
     @FXML
     protected void sInPage2BackClick() {
@@ -215,10 +236,24 @@ public class YouTubeController {
         createAccPage3.setVisible(true);
     }
 
+
+    //home page functions
     @FXML
     protected void showHomePage() {
         homePage.setVisible(true);
     }
+    @FXML
+    protected void hpBurgerMenuOClick() {
+        hpLeftMenu.setVisible(true);
+    }
+    @FXML
+    protected void hpBurgerMenuCClick() {
+        hpLeftMenu.setVisible(false);
+    }
+
+
+
+
 
 
 

@@ -200,18 +200,18 @@
             <PasswordField fx:id="sInPage2Pass" layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Password" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" visible="false">
+      <AnchorPane fx:id="homePage" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" visible="false">
          <children>
             <HBox layoutX="80.0" prefHeight="65.0" prefWidth="1000.0" />
             <VBox layoutY="80.0" prefHeight="640.0" prefWidth="65.0" />
-            <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="12.0" layoutY="29.0">
+            <ImageView fx:id="hpBurgerMenuO" fitHeight="25.0" fitWidth="35.0" layoutX="12.0" layoutY="29.0" onMouseClicked="#hpBurgerMenuOClick">
                <image>
                   <Image url="@../../../icons8-menu-512.png" />
                </image>
             </ImageView>
-            <AnchorPane prefHeight="720.0" prefWidth="270.0" style="-fx-background-color: #181818;">
+            <AnchorPane fx:id="hpLeftMenu" prefHeight="720.0" prefWidth="270.0" style="-fx-background-color: #181818;" visible="false">
                <children>
-                  <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="12.0" layoutY="29.0">
+                  <ImageView fx:id="hpBurgerMenuC" fitHeight="25.0" fitWidth="35.0" layoutX="12.0" layoutY="29.0" onMouseClicked="#hpBurgerMenuCClick">
                      <image>
                         <Image url="@../../../icons8-menu-512.png" />
                      </image>
@@ -264,7 +264,7 @@
                   </ScrollPane>
                </children></AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="createAccPage21" prefHeight="720.0" prefWidth="1080.0">
+      <AnchorPane fx:id="createAccPage3" prefHeight="720.0" prefWidth="1080.0" visible="false">
          <children>
             <ImageView fitHeight="720.0" fitWidth="1080.0">
                <image>
@@ -281,12 +281,12 @@
                   <Font size="40.0" />
                </font>
             </Text>
-            <ImageView fx:id="CreateAcc2ErrorI1" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
+            <ImageView fx:id="CreateAcc3ErrorI" fitHeight="15.0" fitWidth="15.0" layoutX="566.0" layoutY="350.0" visible="false">
                <image>
                   <Image url="@../../../381599_error_icon.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="CreateAcc2Back1" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#CreateAcc2BackClick">
+            <ImageView fx:id="CreateAcc3Back" fitHeight="30.0" fitWidth="20.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#CreateAcc3BackClick">
                <image>
                   <Image url="@../../../7etpgol5vni7a29jfbecupgimi.png" />
                </image>
@@ -296,18 +296,18 @@
                   <Image url="@../../../vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.png" />
                </image>
             </ImageView>
-            <Button fx:id="CreateAcc2Next1" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" onAction="#CreateAcc2NextClick" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
+            <Button fx:id="CreateAcc3Next" layoutX="796.0" layoutY="401.0" mnemonicParsing="false" onAction="#CreateAcc3NextClick" styleClass="button_next" stylesheets="@signIn.css" text="Next" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Text fx:id="CreateAcc2ErrorT1" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Valid Email" visible="false" />
+            <Text fx:id="CreateAcc3ErrorT" fill="RED" layoutX="588.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Valid Email" visible="false" />
             <Text fill="WHITE" layoutX="152.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
-            <TextField layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Email" />
+            <TextField fx:id="EmailCreateAcc" layoutX="563.0" layoutY="293.0" prefHeight="41.0" prefWidth="349.0" promptText="Email" />
          </children>
       </AnchorPane>
    </children>
