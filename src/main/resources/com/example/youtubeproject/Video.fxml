@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="320.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtubeproject.videoController">
+   <children>
+      <ImageView fx:id="coverImage" fitHeight="159.0" fitWidth="300.0" layoutX="18.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Screenshot%202024-07-07%20at%204.47.36%20PM%20copy.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="profileImage" fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../unnamed.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="177.0">
+         <image>
+            <Image url="@../../../roundIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="videosName" layoutX="58.0" layoutY="177.0" prefHeight="17.0" prefWidth="229.0" text="Eminem - Rap God (Explicit)" textFill="WHITE" />
+      <Label fx:id="channel" layoutX="59.0" layoutY="197.0" text="EminemMusic" textFill="#464646" />
+      <Label fx:id="view" layoutX="60.0" layoutY="211.0" text="1.4B views" />
+   </children>
+</AnchorPane>

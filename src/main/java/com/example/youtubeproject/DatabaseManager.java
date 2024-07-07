@@ -21,9 +21,9 @@ public class DatabaseManager {
         return DriverManager.getConnection(url, username, password);
     }
 
-    public static void newAccount(UUID accountUUID, String firstName, String lastName, String email, String username, String password) {
+    public static void newAccount(UUID accountUUID, String firstName, String lastName, String email, String username, String password, String profileImageAddress) {
         try (Connection connection2 = connect()) {
-            String query = "INSERT INTO user_info (accountID, firstname, lastname, email, username, password) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO user_info (accountID, firstname, lastname, email, username, password, profileAddress) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection2.prepareStatement(query);
             ps.setObject(1, accountUUID);
             ps.setString(2, firstName);
@@ -31,6 +31,7 @@ public class DatabaseManager {
             ps.setString(4, email);
             ps.setString(5, username);
             ps.setString(6, password);
+            ps.setString(7, profileImageAddress);
             ps.executeUpdate();
             ps.close();
             connection2.close();
@@ -47,7 +48,7 @@ public class DatabaseManager {
         ResultSet rs = ps.executeQuery();
         connection2.close();
         if (rs.next()) {
-            Account account = new Account((UUID)rs.getObject("accountID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+            Account account = new Account((UUID)rs.getObject("accountID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("profileAddress"));
             return account;
         }
         return null;
@@ -60,7 +61,7 @@ public class DatabaseManager {
         ResultSet rs = ps.executeQuery();
         connection2.close();
         if (rs.next()) {
-            Account account = new Account((UUID)rs.getObject("accountID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+            Account account = new Account((UUID)rs.getObject("accountID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("profileAddress"));
             return account;
         }
         return null;
@@ -73,7 +74,7 @@ public class DatabaseManager {
         ResultSet rs = ps.executeQuery();
         connection2.close();
         if (rs.next()) {
-            Account account = new Account((UUID) rs.getObject("accountID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+            Account account = new Account((UUID)rs.getObject("accountID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("profileAddress"));
             return account;
         }
         return null;
@@ -126,14 +127,17 @@ public class DatabaseManager {
         return commentList;
     }
 
-    public static void newVideo(UUID videoID, UUID accountID, String address, String caption) {
+    public static void newVideo(UUID videoID, UUID accountID, String videoAddress, String coverAddress, String caption, String videoName, boolean isHide) {
         try (Connection connection2 = connect()) {
-            String query = "INSERT INTO videos (videoID, accountID, address, caption) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO videos (videoID, accountID, videoAddress, coverAddress, caption, videoName, isHide) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = connection2.prepareStatement(query);
             ps.setObject(1, videoID);
             ps.setObject(2, accountID);
-            ps.setString(3, address);
-            ps.setString(4, caption);
+            ps.setString(3, videoAddress);
+            ps.setString(4, coverAddress);
+            ps.setString(5, caption);
+            ps.setString(6, videoName);
+            ps.setBoolean(7, isHide);
             ps.executeUpdate();
             ps.close();
             connection2.close();
@@ -150,7 +154,7 @@ public class DatabaseManager {
         ResultSet rs = ps.executeQuery();
         connection2.close();
         if (rs.next()) {
-            Video video = new Video((UUID)rs.getObject("videoID"), (UUID)rs.getObject("accountID"), rs.getString("address"), rs.getString("caption"));
+            Video video = new Video((UUID)rs.getObject("videoID"), (UUID)rs.getObject("accountID"), rs.getString("videoAddress"), rs.getString("coverAddress"), rs.getString("caption"), rs.getString("videoName"), rs.getBoolean("isHide"));
             return video;
         }
         return null;
@@ -165,12 +169,24 @@ public class DatabaseManager {
         connection2.close();
         List<Video> videoList = new ArrayList<>();
         while (rs.next()) {
-            Video video = new Video((UUID)rs.getObject("videoID"), (UUID)rs.getObject("accountID"), rs.getString("address"), rs.getString("caption"));
+            Video video = new Video((UUID)rs.getObject("videoID"), (UUID)rs.getObject("accountID"), rs.getString("videoAddress"), rs.getString("coverAddress"), rs.getString("caption"), rs.getString("videoName"), rs.getBoolean("isHide"));
             videoList.add(video);
         }
         return videoList;
     }
 
+    public static List<Video> getAllVideos() throws SQLException {
+        Connection connection2 = connect();
+        String query = "SELECT * FROM videos";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        List<Video> videoList = new ArrayList<>();
+        while (rs.next()) {
+            Video video = new Video((UUID)rs.getObject("videoID"), (UUID)rs.getObject("accountID"), rs.getString("videoAddress"), rs.getString("coverAddress"), rs.getString("caption"), rs.getString("videoName"), rs.getBoolean("isHide"));
+            videoList.add(video);
+        }
+        return videoList;
+    }
     public static List<LikeVideo> getVideoLikes(UUID videoUUID) throws SQLException {
         Connection connection2 = connect();
         String query = "SELECT * FROM likeVideos WHERE videoID = ?";
@@ -279,9 +295,54 @@ public class DatabaseManager {
 
     }
 
-    public static void subscribeChannel() {
-
+    public static boolean subscribeStatus(UUID accountID, UUID channelID) throws SQLException {
+        Connection connection2 = connect();
+        String query = "SELECT * FROM subscribers WHERE accountID = ? AND channelID = ?";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ps.setObject(1, accountID);
+        ps.setObject(2, channelID);
+        ResultSet rs = ps.executeQuery();
+        connection2.close();
+        if (rs.next()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
-    public static void unSubscribeChannel() {
+    public static void subscribeChannel(UUID accountID, UUID channelID) throws SQLException {
+        if (subscribeStatus(accountID, channelID))
+            return;
+        Connection connection2 = connect();
+        String query = "INSERT INTO subscribers (accountID, channelID) VALUES (?, ?)";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ps.setObject(1, accountID);
+        ps.setObject(2, channelID);
+        ps.executeUpdate();
+        ps.close();
+    }
+    public static void unSubscribeChannel(UUID accountUUID, UUID channelUUID) throws SQLException {
+        if (!subscribeStatus(accountUUID, channelUUID))
+            return;
+        Connection connection = connect();
+        String query = "DELETE FROM subscribers (accountID, channelID) VALUES (?, ?)";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setObject(1, accountUUID);
+        ps.setObject(2, channelUUID);
+        ps.executeUpdate();
+        ps.close();
+    }
+    public static int numberOfView(UUID channelID) throws SQLException {
+        Connection connection2 = connect();
+        String query = "SELECT * FROM videoView WHERE channelID = ?";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ps.setObject(1, channelID);
+        ResultSet rs = ps.executeQuery();
+        connection2.close();
+        int cnt = 0;
+        while (rs.next()) {
+            cnt++;
+        }
+        return cnt;
     }
 }

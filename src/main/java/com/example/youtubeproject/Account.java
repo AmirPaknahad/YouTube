@@ -9,13 +9,15 @@ public class Account {
     private String email;
     private String userName;
     private String PassWord;
-    public Account(UUID accountUUID, String firstName, String lastName, String email, String userName, String passWord) {
+    private String profileImageAddress;
+    public Account(UUID accountUUID, String firstName, String lastName, String email, String userName, String passWord, String profileImageAddress) {
         this.accountID = accountUUID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userName = userName;
         this.PassWord = passWord;
+        this.profileImageAddress = profileImageAddress;
     }
     //get functions
     public UUID getAccountID() {
@@ -37,6 +39,15 @@ public class Account {
     public String getLastName() {
         return lastName;
     }
+
+    public String getProfileImageAddress() {
+        return profileImageAddress;
+    }
+
+    public String toString() {
+        return (accountID + "#" + firstName + "#" + lastName + "#" + email + "#" + userName + "#" + PassWord + "#" + profileImageAddress);
+    }
+
 
     //set functions
     public void setAccountUUID(UUID accountUUID) {
@@ -65,5 +76,9 @@ public class Account {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setProfileImageAddress(String profileImageAddress) {
+        this.profileImageAddress = profileImageAddress;
     }
 }

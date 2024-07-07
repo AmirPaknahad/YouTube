@@ -7,11 +7,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
 public class YouTubeController {
-    Account account = new Account(UUID.randomUUID(), "", "", "", "", "");
+    Account loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "");
     Boolean isLogin = false;
     //signIn page1 variables
     @FXML
@@ -102,21 +105,22 @@ public class YouTubeController {
     private ImageView hpBurgerMenuC;
     @FXML
     private AnchorPane hpLeftMenu;
-
+    @FXML
+    private Button hpSignInButton;
     //signIn page1 functions
     @FXML
     protected void sInPage1CreateAccClick() {
-        account = new Account(UUID.randomUUID(), "", "", "", "", "");;
+        loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "", "");
         sInPageEmail.clear();
         signInPage1.setVisible(false);
         createAccPage1.setVisible(true);
     }
     @FXML
-    protected void sInPage1NextClick() throws SQLException {
+    protected void sInPage1NextClick() throws SQLException, IOException {
         String inputEmail = sInPageEmail.getText();
-        Account accountSIngPage = DatabaseManager.getAccountByEmail(inputEmail);
+        Account accountSIngPage = getUserByUserEmail(inputEmail);
         if (accountSIngPage != null) {
-            account = accountSIngPage;
+            loginAccount = accountSIngPage;
             sInPage1ErrorT.setVisible(false);
             sInPage1ErrorI.setVisible(false);
             signInPage1.setVisible(false);
@@ -129,12 +133,15 @@ public class YouTubeController {
     }
     @FXML
     protected void sInPage1BackClick() {
+        sInPageEmail.clear();
+        signInPage1.setVisible(false);
+        homePage.setVisible(true);
     }
 
     //signIn page2 functions
     @FXML
     protected void sInPage2CreateAccClick() {
-        account = new Account(UUID.randomUUID(), "", "", "", "", "");
+        loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "", "");
         sInPageEmail.clear();
         sInPage2Pass.clear();
         signInPage2.setVisible(false);
@@ -143,7 +150,7 @@ public class YouTubeController {
     @FXML
     protected void sInPage2NextClick() {
         String inputPassWord = sInPage2Pass.getText();
-        if (account.getPassWord().equals(inputPassWord)) {
+        if (loginAccount.getPassWord().equals(inputPassWord)) {
             signInPage2.setVisible(false);
             showHomePage();
         }
@@ -156,6 +163,7 @@ public class YouTubeController {
     protected void sInPage2BackClick() {
         firstNameCreateAcc.clear();
         lastNameCreateAcc.clear();
+        sInPage2Pass.clear();
         signInPage2.setVisible(false);
         signInPage1.setVisible(true);
     }
@@ -171,8 +179,9 @@ public class YouTubeController {
             CreateAcc1ErrorT.setVisible(true);
         }
         else {
-            account.setFirstName(fName);
-            account.setLastName(lName);
+            loginAccount.setFirstName(fName);
+            loginAccount.setLastName(lName);
+            loginAccount.setAccountUUID(UUID.randomUUID());
             CreateAcc1ErrorI.setVisible(false);
             CreateAcc1ErrorT.setVisible(false);
             createAccPage1.setVisible(false);
@@ -190,17 +199,18 @@ public class YouTubeController {
 
     //create account page2 functions
     @FXML
-    protected void CreateAcc2NextClick() throws SQLException {
+    protected void CreateAcc2NextClick() throws SQLException, IOException {
         String inputUserName = UserNameCreateAcc.getText();
         String inputPassWord = PassWordCreateAcc.getText();
-        Account accountByCreateAcc = DatabaseManager.getAccountByUserName(inputUserName);
+        Account accountByCreateAcc = getUserByUserName(inputUserName);
+
         if (!inputPassWord.equals("") && !inputUserName.equals("")) {
             if (accountByCreateAcc != null) {
                 CreateAcc2ErrorI.setVisible(true);
                 CreateAcc2ErrorT.setVisible(true);
             } else {
-                account.setUserName(inputUserName);
-                account.setPassWord(hash(inputPassWord));
+                loginAccount.setUserName(inputUserName);
+                loginAccount.setPassWord(hash(inputPassWord));
                 createAccPage2.setVisible(false);
                 createAccPage3.setVisible(true);
             }
@@ -214,12 +224,12 @@ public class YouTubeController {
 
     //create account page2 functions
     @FXML
-    protected void CreateAcc3NextClick() throws SQLException {
+    protected void CreateAcc3NextClick() throws SQLException, IOException {
        String inputEmail = EmailCreateAcc.getText();
        if (!inputEmail.equals("")) {
            if (validEmail(inputEmail)) {
-               account.setEmail(inputEmail);
-               DatabaseManager.newAccount(account.getAccountID(), account.getFirstName(), account.getLastName(), account.getEmail(), account.getUserName(), account.getPassWord());
+               loginAccount.setEmail(inputEmail);
+               newUser(loginAccount);
                isLogin = true;
                createAccPage3.setVisible(false);
                showHomePage();
@@ -250,7 +260,11 @@ public class YouTubeController {
     protected void hpBurgerMenuCClick() {
         hpLeftMenu.setVisible(false);
     }
-
+    @FXML
+    protected void hpSignInButtonClick() {
+        homePage.setVisible(false);
+        signInPage1.setVisible(true);
+    }
 
 
 
@@ -271,15 +285,152 @@ public class YouTubeController {
             pow2 = (pow2 * mabna2) % mod2;
 
         }
-        return String.valueOf(ans) + "#" + String.valueOf(ans2);
+        return String.valueOf(ans) + "%" + String.valueOf(ans2);
     }
-    protected Boolean validEmail(String Email) throws SQLException {
+    protected Boolean validEmail(String Email) throws SQLException, IOException {
         Boolean checkEmailReg = true;
-        if (DatabaseManager.getAccountByEmail(Email) != null || checkEmailReg == false) {
+        if (getUserByUserEmail(Email) != null || checkEmailReg == false) {
             return false;
         }
         else {
             return true;
         }
+    }
+
+
+
+
+
+
+
+    //server connection:
+    @FXML
+    protected void testDataBase() throws IOException {
+        DataOutputStream outputStream = new DataOutputStream(YouTube.client.getOutputStream());
+        outputStream.writeUTF("checkConnection");
+    }
+    protected void newUser(Account account) throws IOException {
+        DataOutputStream outputStream = new DataOutputStream(YouTube.client.getOutputStream());
+        outputStream.writeUTF("new_account: " + account.toString());
+    }
+    protected Account getUserByUserName(String userName1) throws IOException {
+        DataOutputStream outputStream = new DataOutputStream(YouTube.client.getOutputStream());
+        DataInputStream inputStream = new DataInputStream(YouTube.client.getInputStream());
+        outputStream.writeUTF("get_user_by_user_name: " + userName1);
+        String answer = inputStream.readUTF();
+        System.out.println(answer);
+        if (answer.equals("user_not_found"))
+            return null;
+        String accountID = "";
+        String firstName = "";
+        String lastName = "";
+        String email = "";
+        String userName = "";
+        String passWord = "";
+        String profileAddress = "";
+        int i = 0;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            accountID += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            firstName += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            lastName += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            email += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            userName += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            passWord += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            profileAddress += answer.charAt(i);
+        }
+        Account account1 = new Account(UUID.fromString(accountID), firstName, lastName, email, userName, passWord, profileAddress);
+        return account1;
+    }
+    protected Account getUserByUserEmail(String email1) throws IOException {
+        DataOutputStream outputStream = new DataOutputStream(YouTube.client.getOutputStream());
+        DataInputStream inputStream = new DataInputStream(YouTube.client.getInputStream());
+        outputStream.writeUTF("get_user_by_email: " + email1);
+        String answer = inputStream.readUTF();
+        System.out.println(answer);
+        if (answer.equals("user_not_found"))
+            return null;
+        String accountID = "";
+        String firstName = "";
+        String lastName = "";
+        String email = "";
+        String userName = "";
+        String passWord = "";
+        String profileAddress = "";
+        int i = 0;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            accountID += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            firstName += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            lastName += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            email += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            userName += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            passWord += answer.charAt(i);
+        }
+        i++;
+        for (; i < answer.length(); i++) {
+            if (answer.charAt(i) == '#')
+                break;
+            profileAddress += answer.charAt(i);
+        }
+        Account account1 = new Account(UUID.fromString(accountID), firstName, lastName, email, userName, passWord, profileAddress);
+        return account1;
     }
 }
