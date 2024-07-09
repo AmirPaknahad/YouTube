@@ -366,6 +366,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
+            <Button fx:id="profileButton" layoutX="970.0" layoutY="26.0" mnemonicParsing="false" onAction="#gotoProfile" styleClass="signIn_button" stylesheets="@homePage.css" text="          Profile" textFill="#3da6ff" visible="false" />
          </children></AnchorPane>
       <AnchorPane fx:id="createAccPage3" prefHeight="720.0" prefWidth="1080.0" visible="false">
          <children>
@@ -566,7 +567,7 @@
          <children>
             <VBox layoutY="88.0" prefHeight="632.0" prefWidth="65.0">
                <children>
-                  <Button fx:id="backToHome1" mnemonicParsing="false" onAction="#searchPageBackToHome" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
+                  <Button fx:id="homeButtonMP" mnemonicParsing="false" onAction="#gotoHomePageFromMP" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#searchPageBackToHome">
                            <image>
@@ -701,11 +702,160 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <ScrollPane layoutX="190.0" layoutY="210.0" prefHeight="500.0" prefWidth="500.0">
+            <ScrollPane layoutX="100.0" layoutY="100.0" prefHeight="620.0" prefWidth="617.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="500.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3000.0" prefWidth="617.0">
                      <children>
-                        <VBox fx:id="mediaPlayerComments" prefHeight="0.0" prefWidth="0.0" />
+                        <VBox fx:id="mediaPlayerVbox" prefHeight="0.0" prefWidth="0.0" />
+                     </children></AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="profilePage" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" visible="false">
+         <children>
+            <VBox layoutY="88.0" prefHeight="632.0" prefWidth="65.0">
+               <children>
+                  <Button fx:id="homeButtonProfile" mnemonicParsing="false" onAction="#gotoHomePageFromProfile" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#searchPageBackToHome">
+                           <image>
+                              <Image url="@../../../svgexport-19%20(1)%20copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../svgexport-20%20copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="84.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../svgexport-21%20copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="20.0" layoutY="94.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../svgexport-22%20copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="232.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" styleClass="left_buttons" stylesheets="@homePage.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../svgexport-23%20copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+            <ImageView fitHeight="30.0" fitWidth="42.0" layoutX="12.0" layoutY="30.0" onMouseClicked="#hpBurgerMenuOClick">
+               <image>
+                  <Image url="@../../../icons8-menu-512.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="136.0" layoutX="70.0" layoutY="30.0">
+               <image>
+                  <Image url="@../../../svgexport-15%20(1)%20copy.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="927.0" layoutY="25.0" mnemonicParsing="false" styleClass="pointsMenu_button" stylesheets="@homePage.css" />
+            <AnchorPane prefHeight="720.0" prefWidth="270.0" style="-fx-background-color: #181818;" visible="false">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="42.0" layoutX="12.0" layoutY="30.0" onMouseClicked="#hpBurgerMenuCClick">
+                     <image>
+                        <Image url="@../../../icons8-menu-512.png" />
+                     </image>
+                  </ImageView>
+                  <ScrollPane layoutY="80.0" prefHeight="640.0" prefWidth="270.0" style="-fx-background-color: #181818;">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1087.0" prefWidth="254.0" style="-fx-background-color: #181818;">
+                           <children>
+                              <VBox prefHeight="144.0" prefWidth="256.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Home" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Shorts" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Subscriptions" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="141.0" prefHeight="100.0" prefWidth="256.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="You" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="History" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="241.0" prefHeight="469.0" prefWidth="258.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#181818" height="10.0" stroke="#181818" strokeType="INSIDE" width="256.0" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="    Explore">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#181818" height="10.0" stroke="#181818" strokeType="INSIDE" width="256.0" />
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Trending" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Music" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Movies &amp; TV" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Live" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Gaming" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="News" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Sports" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Learning" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Podcasts" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="710.0" prefHeight="186.0" prefWidth="258.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#181818" height="10.0" stroke="#181818" strokeType="INSIDE" width="256.0" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="    More from YouTube">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#181818" height="10.0" stroke="#181818" strokeType="INSIDE" width="256.0" />
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="YouTube Premium" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="YouTube Music" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="YouTube Kids" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="896.0" prefHeight="191.0" prefWidth="258.0" style="-fx-background-color: #181818;" styleClass="vbox" stylesheets="@homePage.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" styleClass="menu_buttons" stylesheets="@homePage.css" text="Setting" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Report history" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Help" textFill="WHITE" />
+                                    <Button layoutX="11.0" layoutY="107.0" mnemonicParsing="false" styleClass="menu_buttons" stylesheets="@homePage.css" text="Send feedback" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <ImageView fitHeight="30.0" fitWidth="136.0" layoutX="70.0" layoutY="30.0">
+                     <image>
+                        <Image url="@../../../svgexport-15%20(1)%20copy.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <ScrollPane layoutX="100.0" layoutY="100.0" prefHeight="619.0" prefWidth="976.0" style="-fx-background-color: black;">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3000.0" prefWidth="976.0" style="-fx-background-color: black;">
+                     <children>
+                        <VBox fx:id="profileContents" prefHeight="0.0" prefWidth="0.0" />
                      </children></AnchorPane>
               </content>
             </ScrollPane>

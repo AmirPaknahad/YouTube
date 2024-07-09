@@ -1,0 +1,32 @@
+.play_button{
+   -fx-background-color : Transparent;
+   -fx-background-radius: 40;
+   -fx-pref-Height: 30;
+   -fx-pref-Width: 30;
+}
+.play_button:hover{
+   -fx-background-color : #727272;
+}
+
+.subscribe_button{
+     -fx-background-color: white;
+     -fx-background-radius: 40;
+     -fx-pref-Height: 30;
+     -fx-pref-Width: 95;
+}
+
+
+.like_button{
+    -fx-pref-Height: 30;
+    -fx-pref-Width: 30;
+    -fx-background-radius : 20;
+    -fx-background-color : Transparent;
+}
+.like_button:hover{
+    -fx-background-color: #5F5F5F;
+}
+.new_comment{
+    -fx-background-radius : 20;
+     -fx-pref-Height: 30;
+     -fx-pref-Width: 110;
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="900.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtubeproject.profileController">
+   <children>
+      <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="60.0" layoutY="60.0" onMouseClicked="#changeProfile" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../ermia_profile.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="60.0" layoutY="60.0">
+         <image>
+            <Image url="@../../../roundIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="userName" layoutX="239.0" layoutY="68.0" prefHeight="46.0" prefWidth="274.0" text="ermia_babaie" textFill="WHITE">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label fx:id="subscribers" layoutX="241.0" layoutY="145.0" prefHeight="31.0" prefWidth="238.0" text="0 Subscribers" textFill="#616060">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button fx:id="subscribe" layoutX="489.0" layoutY="123.0" mnemonicParsing="false" onAction="#subscribeClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Un Subscribe" textFill="#fff9f9" visible="false" />
+      <Button fx:id="newVideo" layoutX="81.0" layoutY="269.0" mnemonicParsing="false" onAction="#uploadVideo" styleClass="subscribe_button" stylesheets="@profile.css" text="New Video" textFill="WHITE" />
+      <Button fx:id="setting" layoutX="215.0" layoutY="269.0" mnemonicParsing="false" onAction="#settingClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Setting" textFill="WHITE" />
+      <Button fx:id="selectVideo" layoutX="24.0" layoutY="320.0" mnemonicParsing="false" onAction="#selectVideoClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Select Video" textFill="WHITE" visible="false" />
+      <Button fx:id="selectCover" layoutX="139.0" layoutY="320.0" mnemonicParsing="false" onAction="#selectCoverClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Select cover " textFill="WHITE" visible="false" />
+      <TextField fx:id="videoName" layoutX="54.0" layoutY="358.0" promptText="Video's Name" visible="false" />
+      <Button fx:id="newVideoOk" layoutX="225.0" layoutY="359.0" mnemonicParsing="false" text="ok" visible="false" />
+      <TextField fx:id="newUserName" layoutX="345.0" layoutY="244.0" promptText="new User Name" visible="false" />
+      <TextField fx:id="newPassWord" layoutX="345.0" layoutY="302.0" promptText="new PassWord" visible="false" />
+      <Button fx:id="settingOk" layoutX="518.0" layoutY="272.0" mnemonicParsing="false" text="ok" visible="false" />
+      <Button fx:id="signOut" layoutX="489.0" layoutY="123.0" mnemonicParsing="false" onAction="#signOutClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Sign out" textFill="#fff9f9" />
+      <TextField fx:id="videoName1" layoutX="54.0" layoutY="398.0" prefHeight="26.0" prefWidth="559.0" promptText="Caption" visible="false" />
+   </children>
+</AnchorPane>

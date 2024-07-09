@@ -25,8 +25,8 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class YouTubeController implements Initializable {
-    Account loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "", "");
-    Boolean isLogin = false;
+    public static Account loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "", "");
+    public static Boolean isLogin = false;
 
 
 
@@ -139,13 +139,18 @@ public class YouTubeController implements Initializable {
     private TextField hpSearchText;
     @FXML
     private ImageView signInButtonImage;
+    @FXML
+    private Button profileButton;
 
 
     //media player page
     @FXML
     private AnchorPane mediaPlayerPage;
     @FXML
-    private VBox mediaPlayerComments;
+    private VBox mediaPlayerVbox;
+    @FXML
+    private Button homeButtonMP;
+
     //search page
     @FXML
     private AnchorPane searchPage;
@@ -154,8 +159,13 @@ public class YouTubeController implements Initializable {
     @FXML
     private Button backToHome;
 
-
-
+    //profile functions
+    @FXML
+    private AnchorPane profilePage;
+    @FXML
+    private VBox profileContents;
+    @FXML
+    private Button homeButtonProfile;
 
 
 
@@ -374,9 +384,92 @@ public class YouTubeController implements Initializable {
 
 
 
+    //profile functions
+    @FXML
+    protected void showProfile(Account account) throws SQLException, IOException {
+        profilePage.setVisible(true);
+        FXMLLoader fxmlPage = new FXMLLoader();
+        fxmlPage.setLocation(getClass().getResource("profileTasks.fxml"));
+        AnchorPane profileTask = fxmlPage.load();
+        profileController profileController = fxmlPage.getController();
+        profileController.setData(account);
+        profileContents.getChildren().add(profileTask);
+        /*List<Video> videos = DatabaseManager.getAccountVideos(account.getAccountID());
+        for (int i = 0; i < videos.size() - 2; i += 3) {
+            HBox hBox = new HBox();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            videoController videoController = fxmlLoader.getController();
+            videoController.setDate(videos.get(i));
+            Video video = videos.get(i);
+            anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hBox.getChildren().add(anchorPane);
 
+            FXMLLoader fxmlLoader2 = new FXMLLoader();
+            fxmlLoader2.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane2 = fxmlLoader2.load();
+            videoController videoController2 = fxmlLoader2.getController();
+            videoController2.setDate(videos.get(i));
+            Video video2 = videos.get(i + 1);
+            anchorPane2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video2);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hBox.getChildren().add(anchorPane2);
 
-
+            FXMLLoader fxmlLoader3 = new FXMLLoader();
+            fxmlLoader3.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane3 = fxmlLoader3.load();
+            videoController videoController3 = fxmlLoader3.getController();
+            videoController3.setDate(videos.get(i));
+            Video video3 = videos.get(i);
+            anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video3);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hBox.getChildren().add(anchorPane3);
+            profileContents.getChildren().add(hBox);
+        }
+         */
+    }
+    @FXML
+    protected void gotoProfile() throws SQLException, IOException {
+        homePage.setVisible(false);
+        showProfile(loginAccount);
+    }
+    @FXML
+    protected void gotoHomePageFromProfile() throws SQLException, IOException {
+        profilePage.setVisible(false);
+        showHomePage();
+    }
 
 
     //home page functions
@@ -385,6 +478,7 @@ public class YouTubeController implements Initializable {
         if (isLogin) {
             hpSignInButton.setVisible(false);
             signInButtonImage.setVisible(false);
+            profileButton.setVisible(true);
         }
         else {
             hpSignInButton.setVisible(true);
@@ -392,7 +486,7 @@ public class YouTubeController implements Initializable {
         }
         homePage.setVisible(true);
         List<Video> videos = new ArrayList<>();
-        videos = DatabaseManager.getAllVideos();
+        videos = getVideosForHomePages();
         for (int i = 0; i < videos.size() - 2; i += 3) {
             HBox hBox = new HBox();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -528,27 +622,35 @@ public class YouTubeController implements Initializable {
 
     //play media
     @FXML
+    protected void gotoHomePageFromMP() throws SQLException, IOException {
+        mediaPlayerPage.setVisible(false);
+        showHomePage();
+    }
+    @FXML
     protected void playMedia(Video video) throws SQLException, IOException {
         homePage.setVisible(false);
         if (video.getAccountID() != loginAccount.getAccountID() && isLogin) {
             DatabaseManager.watchVideo(loginAccount.getAccountID(), video.getAccountID());
         }
+
         mediaPlayerPage.setVisible(true);
-        mediaPlayerComments.getChildren().clear();
+        mediaPlayerVbox.getChildren().clear();
+        FXMLLoader fxmlLoader2 = new FXMLLoader();
+        fxmlLoader2.setLocation(getClass().getResource("mediaPlayer.fxml"));
+        AnchorPane mediaPlayer = fxmlLoader2.load();
+        mediaPlayerController mediaPlayerController = fxmlLoader2.getController();
+        mediaPlayerController.setData(video);
+        mediaPlayerVbox.getChildren().add(mediaPlayer);
+
+
         List<Comment> commentList = DatabaseManager.getVideoComments(video.getVideoID());
         for (Comment comment: commentList) {
-            System.out.println("4");
             FXMLLoader fxmlLoader = new FXMLLoader();
-            System.out.println("5");
             fxmlLoader.setLocation(getClass().getResource("Comment.fxml"));
-            System.out.println("6");
             AnchorPane anchorPane = fxmlLoader.load();
-            System.out.println("7");
             CommentController commentController = fxmlLoader.getController();
-            System.out.println("8");
             commentController.setData(comment);
-            System.out.println("9");
-            mediaPlayerComments.getChildren().add(anchorPane);
+            mediaPlayerVbox.getChildren().add(anchorPane);
         }
     }
 
@@ -600,6 +702,26 @@ public class YouTubeController implements Initializable {
                 return true;
         }
         return false;
+    }
+
+    protected List<Video> getVideosForHomePages() throws SQLException {
+        List<Video> videos = DatabaseManager.getAllVideos();
+        List<Video> finalVideos = new ArrayList<>();
+        for (Video video: videos) {
+            if (finalVideos.size() >= 21)
+                break;
+            if (DatabaseManager.subscribeStatus(loginAccount.getAccountID(), video.getAccountID())) {
+                finalVideos.add(video);
+            }
+        }
+        for (Video video: finalVideos)
+            videos.remove(video);
+        while (finalVideos.size() < 21 && videos.size() > 0) {
+            Video video = videos.get(0);
+            finalVideos.add(video);
+            videos.remove(video);
+        }
+        return finalVideos;
     }
 
 

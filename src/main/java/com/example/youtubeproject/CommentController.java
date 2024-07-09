@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class CommentController {
+    Comment comment;
     @FXML
     private ImageView profilePic;
     @FXML
@@ -29,6 +30,7 @@ public class CommentController {
     private Text commentText;
 
     public void setData(Comment comment) throws SQLException {
+        this.comment = comment;
         profilePic = new ImageView(DatabaseManager.getAccount(comment.getAccountID()).getProfileImageAddress());
         userName.setText(DatabaseManager.getAccount(comment.getAccountID()).getUserName());
         List<LikeComment> likeCommentList = new ArrayList<>();
@@ -45,5 +47,40 @@ public class CommentController {
         disLikeNumber.setText(String.valueOf(disLikeNum));
         commentText.setText(comment.getText());
     }
-
+    @FXML
+    public void likeButtonClick() throws SQLException {
+        if (YouTubeController.isLogin) {
+            DatabaseManager.likeComment(YouTubeController.loginAccount.getAccountID(), comment.getCommentID(), 1);
+        }
+        List<LikeComment> likeCommentList = new ArrayList<>();
+        likeCommentList = DatabaseManager.getCommentLikes(comment.getCommentID());
+        int likeNum = 0;
+        int disLikeNum = 0;
+        for (LikeComment likeComment: likeCommentList) {
+            if (likeComment.getLike() == 1)
+                likeNum++;
+            if (likeComment.getLike() == -1)
+                disLikeNum++;
+        }
+        likeNumber.setText(String.valueOf(likeNum));
+        disLikeNumber.setText(String.valueOf(disLikeNum));
+    }
+    @FXML
+    public void ikeButtonClick() throws SQLException {
+        if (YouTubeController.isLogin) {
+            DatabaseManager.likeComment(YouTubeController.loginAccount.getAccountID(), comment.getCommentID(), 1);
+        }
+        List<LikeComment> likeCommentList = new ArrayList<>();
+        likeCommentList = DatabaseManager.getCommentLikes(comment.getCommentID());
+        int likeNum = 0;
+        int disLikeNum = 0;
+        for (LikeComment likeComment: likeCommentList) {
+            if (likeComment.getLike() == 1)
+                likeNum++;
+            if (likeComment.getLike() == -1)
+                disLikeNum++;
+        }
+        likeNumber.setText(String.valueOf(likeNum));
+        disLikeNumber.setText(String.valueOf(disLikeNum));
+    }
 }

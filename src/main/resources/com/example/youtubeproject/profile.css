@@ -1,0 +1,6 @@
+.subscribe_button{
+    -fx-background-color: #5F5F5F;
+    -fx-background-radius : 20;
+     -fx-pref-Height: 30;
+     -fx-pref-Width: 110;
+}

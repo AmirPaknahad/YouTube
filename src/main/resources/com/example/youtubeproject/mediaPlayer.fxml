@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtubeproject.mediaPlayerController">
+   <children>
+      <MediaView fx:id="video" fitHeight="400.0" fitWidth="600.0" />
+      <Button fx:id="pauseButton" layoutX="12.0" layoutY="425.0" mnemonicParsing="false" onAction="#pauseButtonClick" styleClass="play_button" stylesheets="@mediaPlayer.css" visible="false">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../svgexport-83%20copy.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="playButton" layoutX="12.0" layoutY="425.0" mnemonicParsing="false" onAction="#playButtonClick" styleClass="play_button" stylesheets="@mediaPlayer.css">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../svgexport-80%20copy.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <HBox layoutY="404.0" prefHeight="20.0" prefWidth="600.0">
+         <children>
+            <Slider prefHeight="16.0" prefWidth="600.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Slider>
+         </children>
+      </HBox>
+      <HBox layoutX="461.0" layoutY="438.0" prefHeight="20.0" prefWidth="133.0">
+         <children>
+            <Slider />
+         </children>
+      </HBox>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="425.0" layoutY="426.0">
+         <image>
+            <Image url="@../../../svgexport-85%20copy.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="250.0" layoutY="438.0" prefHeight="20.0" prefWidth="133.0">
+         <children>
+            <Slider />
+         </children>
+      </HBox>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="211.0" layoutY="425.0">
+         <image>
+            <Image url="@../../../noun-playback-speed-1561899%20copy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="profilePic" fitHeight="50.0" fitWidth="50.0" layoutX="18.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../unnamed.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="channelName" layoutX="13.0" layoutY="474.0" prefHeight="31.0" prefWidth="587.0" text="video's name" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="18.0" layoutY="533.0">
+         <image>
+            <Image url="@../../../roundIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="videoName" layoutX="77.0" layoutY="533.0" prefHeight="23.0" prefWidth="182.0" text="EminemMusic" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="channelSubscribers" layoutX="79.0" layoutY="561.0" prefHeight="22.0" prefWidth="189.0" text="60.9M subscribers" textFill="#515151">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Text fx:id="videoCaption" fill="WHITE" layoutX="4.0" layoutY="625.0" strokeType="OUTSIDE" strokeWidth="0.0" text="this is video's caption" wrappingWidth="575.5973129272461">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="278.0" layoutY="541.0" mnemonicParsing="false" styleClass="subscribe_button" stylesheets="@mediaPlayer.css" text="Subscribe" />
+      <Button fx:id="likeButton" layoutX="381.0" layoutY="536.0" mnemonicParsing="false" styleClass="like_button" stylesheets="@mediaPlayer.css">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../svgexport-100%20copy.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="disLikeButton" layoutX="485.0" layoutY="536.0" mnemonicParsing="false" styleClass="like_button" stylesheets="@mediaPlayer.css">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../svgexport-101%20copy.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="likeNumber" layoutX="430.0" layoutY="549.0" prefHeight="17.0" prefWidth="41.0" text="1000" textFill="#808080" />
+      <Label fx:id="disLikeNumber" layoutX="535.0" layoutY="549.0" prefHeight="17.0" prefWidth="41.0" text="1000" textFill="#808080" />
+      <Button fx:id="newComment" layoutX="483.0" layoutY="660.0" mnemonicParsing="false" onAction="#newCommentClick" prefWidth="126.0" styleClass="new_comment" stylesheets="@mediaPlayer.css" text="new Comment" />
+      <TextField fx:id="commentText" layoutX="8.0" layoutY="662.0" prefHeight="26.0" prefWidth="467.0" promptText="Comment" />
+   </children>
+</AnchorPane>

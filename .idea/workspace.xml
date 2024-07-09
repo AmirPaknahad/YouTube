@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b134ea5-673d-4e16-a255-74a1fbc11cc5" name="Changes" comment="kolli taghir">
+    <list default="true" id="8b134ea5-673d-4e16-a255-74a1fbc11cc5" name="Changes" comment="media player step">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/Video.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTube.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTubeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTubeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/videoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/videoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/Video.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/Video.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/YouTube-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/YouTube-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/commentFxml.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/commentFxml.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/mediaPlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/mediaPlayer.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720386809049</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="media player step">
+      <option name="closed" value="true" />
+      <created>1720522408929</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1720522408929</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,6 +168,7 @@
     <MESSAGE value="project updated" />
     <MESSAGE value="database updated" />
     <MESSAGE value="kolli taghir" />
-    <option name="LAST_COMMIT_MESSAGE" value="kolli taghir" />
+    <MESSAGE value="media player step" />
+    <option name="LAST_COMMIT_MESSAGE" value="media player step" />
   </component>
 </project>

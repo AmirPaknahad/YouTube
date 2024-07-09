@@ -342,6 +342,19 @@ public class DatabaseManager {
         ps.executeUpdate();
         ps.close();
     }
+    public static int subscriberNumber(UUID channelID) throws SQLException {
+        Connection connection2 = connect();
+        String query = "SELECT * FROM subscribers WHERE channelID = ?";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ps.setObject(1, channelID);
+        ResultSet rs = ps.executeQuery();
+        connection2.close();
+        int cnt = 0;
+        while (rs.next()) {
+            cnt++;
+        }
+        return cnt;
+    }
     public static void watchVideo(UUID accountID, UUID videoID) throws SQLException {
         Connection connection2 = connect();
         String query = "INSERT INTO videoView (accountID, videoID) VALUES (?, ?)";
