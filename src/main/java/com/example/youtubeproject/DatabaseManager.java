@@ -79,6 +79,15 @@ public class DatabaseManager {
         }
         return null;
     }
+    public static void changeProfile(UUID accountID, String profileAddress) throws SQLException {
+        Connection connection2 = connect();
+        String query = "UPDATE user_info SET profileAddress = ? WHERE accountID = ?";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ps.setString(1, profileAddress);
+        ps.setObject(2, accountID);
+        ps.executeUpdate();
+        ps.close();
+    }
 
     public static void newComment(UUID commentID, UUID accountID, UUID videoID, String commentText, int likeCnt, int disLikeCnt) {
         try (Connection connection2 = connect()) {
@@ -129,7 +138,7 @@ public class DatabaseManager {
 
     public static void newVideo(UUID videoID, UUID accountID, String videoAddress, String coverAddress, String caption, String videoName, boolean isHide) {
         try (Connection connection2 = connect()) {
-            String query = "INSERT INTO videos (videoID, accountID, videoAddress, coverAddress, caption, videoName, isHide) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO videos (videoID, accountID, videoAddress, coverAddress, caption, videoName, isHide) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection2.prepareStatement(query);
             ps.setObject(1, videoID);
             ps.setObject(2, accountID);
@@ -140,6 +149,7 @@ public class DatabaseManager {
             ps.setBoolean(7, isHide);
             ps.executeUpdate();
             ps.close();
+            System.out.println("ss");
             connection2.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -329,6 +339,15 @@ public class DatabaseManager {
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setObject(1, accountUUID);
         ps.setObject(2, channelUUID);
+        ps.executeUpdate();
+        ps.close();
+    }
+    public static void watchVideo(UUID accountID, UUID videoID) throws SQLException {
+        Connection connection2 = connect();
+        String query = "INSERT INTO videoView (accountID, videoID) VALUES (?, ?)";
+        PreparedStatement ps = connection2.prepareStatement(query);
+        ps.setObject(1, accountID);
+        ps.setObject(2, videoID);
         ps.executeUpdate();
         ps.close();
     }

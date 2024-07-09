@@ -22,8 +22,8 @@
             <Image url="@../../../roundIcon.png" />
          </image>
       </ImageView>
-      <Label fx:id="videosName" layoutX="58.0" layoutY="177.0" prefHeight="17.0" prefWidth="229.0" text="Eminem - Rap God (Explicit)" textFill="WHITE" />
-      <Label fx:id="channel" layoutX="59.0" layoutY="197.0" text="EminemMusic" textFill="#464646" />
-      <Label fx:id="view" layoutX="60.0" layoutY="211.0" text="1.4B views" />
+      <Label fx:id="videosName" layoutX="59.0" layoutY="177.0" prefHeight="17.0" prefWidth="229.0" text="Eminem - Rap God (Explicit)" textFill="WHITE" />
+      <Label fx:id="channel" layoutX="59.0" layoutY="195.0" text="EminemMusic" textFill="#464646" />
+      <Label fx:id="view" layoutX="60.0" layoutY="210.0" text="1.4B views" />
    </children>
 </AnchorPane>

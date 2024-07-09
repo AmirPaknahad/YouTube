@@ -1,0 +1,9 @@
+.like_button{
+    -fx-pref-Height: 39;
+    -fx-pref-Width: 39;
+    -fx-background-radius : 20;
+    -fx-background-color : Transparent;
+}
+.like_button:hover{
+    -fx-background-color: #5F5F5F;
+}

@@ -61,6 +61,10 @@ public class Video {
         this.videoAddress = videoAddress;
     }
 
+    public void setCoverAddress(String coverAddress) {
+        this.coverAddress = coverAddress;
+    }
+
     public void setCaption(String caption) {
         this.caption = caption;
     }

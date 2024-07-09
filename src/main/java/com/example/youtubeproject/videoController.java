@@ -27,12 +27,14 @@ public class videoController {
     private Label view;
 
     public void setDate(Video video) throws SQLException {
-        coverImage = new ImageView(video.getVideoAddress());
+        coverImage = new ImageView(video.getCoverAddress());
         profileImage = new ImageView(DatabaseManager.getAccount(video.getAccountID()).getProfileImageAddress());
+//        profileImage = new ImageView("unnamed.jpg");
         videosName.setText(video.getVideoName());
         channel.setText(DatabaseManager.getAccount(video.getAccountID()).getUserName());
-        view.setText(String.valueOf(DatabaseManager.numberOfView(video.getAccountID())));
-
+//        view.setText(String.valueOf(DatabaseManager.numberOfView(video.getAccountID())));
+//        channel.setText("Eminem music");
+        view.setText("1B views");
     }
 
 }

@@ -1,28 +1,42 @@
 package com.example.youtubeproject;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class YouTubeController {
-    Account loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "");
+public class YouTubeController implements Initializable {
+    Account loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "", "");
     Boolean isLogin = false;
+
+
+
     //signIn page1 variables
     @FXML
     private AnchorPane signInPage1;
     @FXML
     private TextField sInPageEmail;
     @FXML
-    private javafx.scene.text.Text sInPage1ErrorT;
+    private Text sInPage1ErrorT;
     @FXML
     private ImageView sInPage1ErrorI;
     @FXML
@@ -31,6 +45,7 @@ public class YouTubeController {
     private Button sInPage1Next;
     @FXML
     private ImageView sInPage1Back;
+
 
 
     //signIn page2 variables
@@ -50,6 +65,7 @@ public class YouTubeController {
     private ImageView sInPage2Back;
 
 
+
     //create account page1 variables
     @FXML
     private AnchorPane createAccPage1;
@@ -58,13 +74,14 @@ public class YouTubeController {
     @FXML
     private TextField lastNameCreateAcc;
     @FXML
-    private javafx.scene.text.Text CreateAcc1ErrorT;
+    private Text CreateAcc1ErrorT;
     @FXML
     private ImageView CreateAcc1ErrorI;
     @FXML
     private Button CreateAcc1Next;
     @FXML
     private ImageView CreateAcc1Back;
+
 
 
     //create account page2 variables
@@ -75,7 +92,7 @@ public class YouTubeController {
     @FXML
     private TextField PassWordCreateAcc;
     @FXML
-    private javafx.scene.text.Text CreateAcc2ErrorT;
+    private Text CreateAcc2ErrorT;
     @FXML
     private ImageView CreateAcc2ErrorI;
     @FXML
@@ -83,19 +100,24 @@ public class YouTubeController {
     @FXML
     private ImageView CreateAcc2Back;
 
+
+
     //create account page3 variables
     @FXML
     private AnchorPane createAccPage3;
     @FXML
     private TextField EmailCreateAcc;
     @FXML
-    private javafx.scene.text.Text CreateAcc3ErrorT;
+    private Text CreateAcc3ErrorT;
     @FXML
     private ImageView CreateAcc3ErrorI;
     @FXML
     private Button CreateAcc3Next;
     @FXML
     private ImageView CreateAcc3Back;
+
+
+
     // home page variables
     @FXML
     private AnchorPane homePage;
@@ -107,6 +129,71 @@ public class YouTubeController {
     private AnchorPane hpLeftMenu;
     @FXML
     private Button hpSignInButton;
+    @FXML
+    private VBox hpContents;
+    @FXML
+    private AnchorPane hpContentsPane;
+    @FXML
+    private Button hpSearchButton;
+    @FXML
+    private TextField hpSearchText;
+    @FXML
+    private ImageView signInButtonImage;
+
+
+    //media player page
+    @FXML
+    private AnchorPane mediaPlayerPage;
+    @FXML
+    private VBox mediaPlayerComments;
+    //search page
+    @FXML
+    private AnchorPane searchPage;
+    @FXML
+    private HBox searchResult;
+    @FXML
+    private Button backToHome;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            showHomePage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //signIn page1 functions
     @FXML
     protected void sInPage1CreateAccClick() {
@@ -138,6 +225,14 @@ public class YouTubeController {
         homePage.setVisible(true);
     }
 
+
+
+
+
+
+
+
+
     //signIn page2 functions
     @FXML
     protected void sInPage2CreateAccClick() {
@@ -148,9 +243,10 @@ public class YouTubeController {
         createAccPage1.setVisible(true);
     }
     @FXML
-    protected void sInPage2NextClick() {
+    protected void sInPage2NextClick() throws SQLException, IOException {
         String inputPassWord = sInPage2Pass.getText();
-        if (loginAccount.getPassWord().equals(inputPassWord)) {
+        if (loginAccount.getPassWord().equals(hash(inputPassWord))) {
+            isLogin = true;
             signInPage2.setVisible(false);
             showHomePage();
         }
@@ -167,6 +263,13 @@ public class YouTubeController {
         signInPage2.setVisible(false);
         signInPage1.setVisible(true);
     }
+
+
+
+
+
+
+
 
 
     //create account page1 functions
@@ -197,6 +300,14 @@ public class YouTubeController {
     }
 
 
+
+
+
+
+
+
+
+
     //create account page2 functions
     @FXML
     protected void CreateAcc2NextClick() throws SQLException, IOException {
@@ -222,6 +333,13 @@ public class YouTubeController {
         createAccPage1.setVisible(true);
     }
 
+
+
+
+
+
+
+
     //create account page2 functions
     @FXML
     protected void CreateAcc3NextClick() throws SQLException, IOException {
@@ -232,6 +350,12 @@ public class YouTubeController {
                newUser(loginAccount);
                isLogin = true;
                createAccPage3.setVisible(false);
+
+               EmailCreateAcc.clear();
+               UserNameCreateAcc.clear();
+               firstNameCreateAcc.clear();
+               lastNameCreateAcc.clear();
+               PassWordCreateAcc.clear();
                showHomePage();
            }
            else {
@@ -247,10 +371,93 @@ public class YouTubeController {
     }
 
 
+
+
+
+
+
+
+
+
     //home page functions
     @FXML
-    protected void showHomePage() {
+    protected void showHomePage() throws IOException, SQLException {
+        if (isLogin) {
+            hpSignInButton.setVisible(false);
+            signInButtonImage.setVisible(false);
+        }
+        else {
+            hpSignInButton.setVisible(true);
+            signInButtonImage.setVisible(true);
+        }
         homePage.setVisible(true);
+        List<Video> videos = new ArrayList<>();
+        videos = DatabaseManager.getAllVideos();
+        for (int i = 0; i < videos.size() - 2; i += 3) {
+            HBox hBox = new HBox();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            videoController videoController = fxmlLoader.getController();
+            videoController.setDate(videos.get(i));
+            Video video = videos.get(i);
+            anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video);
+                    } catch (SQLException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hBox.getChildren().add(anchorPane);
+
+            FXMLLoader fxmlLoader2 = new FXMLLoader();
+            fxmlLoader2.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane2 = fxmlLoader2.load();
+            videoController videoController2 = fxmlLoader2.getController();
+            videoController2.setDate(videos.get(i + 1));
+            Video video2 = videos.get(i + 1);
+            anchorPane2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video2);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hBox.getChildren().add(anchorPane2);
+
+            FXMLLoader fxmlLoader3 = new FXMLLoader();
+            fxmlLoader3.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane3 = fxmlLoader3.load();
+            videoController videoController3 = fxmlLoader3.getController();
+            videoController3.setDate(videos.get(i + 2));
+            Video video3 = videos.get(i + 2);
+            anchorPane3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video3);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hBox.getChildren().add(anchorPane3);
+
+
+
+            hpContents.getChildren().add(hBox);
+        }
+
     }
     @FXML
     protected void hpBurgerMenuOClick() {
@@ -265,6 +472,92 @@ public class YouTubeController {
         homePage.setVisible(false);
         signInPage1.setVisible(true);
     }
+    @FXML
+    protected void HpSearchButtonClick() throws SQLException, IOException {
+        String save = hpSearchText.getText();
+        hpSearchText.clear();
+        homePage.setVisible(false);
+        showSearchPage(save);
+    }
+
+
+
+
+    //search page
+    @FXML
+    protected void searchPageBackToHome() throws SQLException, IOException {
+        searchResult.getChildren().clear();
+        searchPage.setVisible(false);
+//        homePage.setVisible(true);
+        showHomePage();
+    }
+    @FXML
+    protected void showSearchPage(String videoName) throws SQLException, IOException {
+        searchPage.setVisible(true);
+        searchResult.getChildren().clear();
+        List<Video> videoList = DatabaseManager.getAllVideos();
+        List<Video> selected = new ArrayList<>();
+        for (Video video : videoList) {
+            if (strInStr(videoName, video.getVideoName()))
+                selected.add(video);
+        }
+        for (Video video: selected) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("Video.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            videoController videoController = fxmlLoader.getController();
+            videoController.setDate(video);
+            Video video1 = video;
+            anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        playMedia(video1);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            searchResult.getChildren().add(anchorPane);
+        }
+    }
+
+
+
+    //play media
+    @FXML
+    protected void playMedia(Video video) throws SQLException, IOException {
+        homePage.setVisible(false);
+        if (video.getAccountID() != loginAccount.getAccountID() && isLogin) {
+            DatabaseManager.watchVideo(loginAccount.getAccountID(), video.getAccountID());
+        }
+        mediaPlayerPage.setVisible(true);
+        mediaPlayerComments.getChildren().clear();
+        List<Comment> commentList = DatabaseManager.getVideoComments(video.getVideoID());
+        for (Comment comment: commentList) {
+            System.out.println("4");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            System.out.println("5");
+            fxmlLoader.setLocation(getClass().getResource("Comment.fxml"));
+            System.out.println("6");
+            AnchorPane anchorPane = fxmlLoader.load();
+            System.out.println("7");
+            CommentController commentController = fxmlLoader.getController();
+            System.out.println("8");
+            commentController.setData(comment);
+            System.out.println("9");
+            mediaPlayerComments.getChildren().add(anchorPane);
+        }
+    }
+
+
+
+
+
+
+
 
 
 
@@ -296,6 +589,44 @@ public class YouTubeController {
             return true;
         }
     }
+    protected Boolean strInStr(String s1, String s2) {
+        for (int i = 0; i < (s2.length() - s1.length() + 1); i++) {
+            boolean check = true;
+            for (int j = 0; j < s1.length(); j++) {
+                if (s1.charAt(j) != s2.charAt(j + i))
+                    check = false;
+            }
+            if (check)
+                return true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -433,4 +764,5 @@ public class YouTubeController {
         Account account1 = new Account(UUID.fromString(accountID), firstName, lastName, email, userName, passWord, profileAddress);
         return account1;
     }
+
 }

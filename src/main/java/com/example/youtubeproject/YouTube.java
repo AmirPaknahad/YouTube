@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
+import java.util.UUID;
 
 public class YouTube extends Application {
     public static Socket client;
@@ -20,7 +22,8 @@ public class YouTube extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
+//        DatabaseManager.newComment(UUID.randomUUID(),UUID.fromString("aa39a19d-67d1-4ae3-bb79-fffdfee70e9c") , UUID.fromString("ba532ae3-4f26-47a4-9eee-ea947c30ccdd"), "this is my comment", 10, 5);
         client = new Socket("127.0.0.1", 5000);
         launch();
     }
