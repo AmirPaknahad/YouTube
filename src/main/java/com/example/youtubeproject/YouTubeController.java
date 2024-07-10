@@ -19,15 +19,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 public class YouTubeController implements Initializable {
     public static Account loginAccount = new Account(UUID.randomUUID(), "", "", "", "", "", "");
     public static Boolean isLogin = false;
-
+    public static Video videoPlay;
 
 
     //signIn page1 variables
@@ -147,9 +144,12 @@ public class YouTubeController implements Initializable {
     @FXML
     private AnchorPane mediaPlayerPage;
     @FXML
-    private VBox mediaPlayerVbox;
+    public  VBox mediaPlayerVbox;
     @FXML
     private Button homeButtonMP;
+    @FXML
+    private Button viewAccount;
+
 
     //search page
     @FXML
@@ -387,6 +387,8 @@ public class YouTubeController implements Initializable {
     //profile functions
     @FXML
     protected void showProfile(Account account) throws SQLException, IOException {
+        System.out.println(account.getAccountID());
+        profileContents.getChildren().clear();
         profilePage.setVisible(true);
         FXMLLoader fxmlPage = new FXMLLoader();
         fxmlPage.setLocation(getClass().getResource("profileTasks.fxml"));
@@ -394,8 +396,14 @@ public class YouTubeController implements Initializable {
         profileController profileController = fxmlPage.getController();
         profileController.setData(account);
         profileContents.getChildren().add(profileTask);
-        /*List<Video> videos = DatabaseManager.getAccountVideos(account.getAccountID());
+        List<Video> videos = DatabaseManager.getAccountVideos(account.getAccountID());
+        System.out.println(videos.size());
+        if (videos.size() % 3 != 0)
+            videos.add(videos.get(0));
+        if (videos.size() % 3 != 0)
+            videos.add(videos.get(0));
         for (int i = 0; i < videos.size() - 2; i += 3) {
+            System.out.println(i);
             HBox hBox = new HBox();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("Video.fxml"));
@@ -416,12 +424,11 @@ public class YouTubeController implements Initializable {
                 }
             });
             hBox.getChildren().add(anchorPane);
-
             FXMLLoader fxmlLoader2 = new FXMLLoader();
             fxmlLoader2.setLocation(getClass().getResource("Video.fxml"));
             AnchorPane anchorPane2 = fxmlLoader2.load();
             videoController videoController2 = fxmlLoader2.getController();
-            videoController2.setDate(videos.get(i));
+            videoController2.setDate(videos.get(i + 1));
             Video video2 = videos.get(i + 1);
             anchorPane2.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -436,13 +443,12 @@ public class YouTubeController implements Initializable {
                 }
             });
             hBox.getChildren().add(anchorPane2);
-
             FXMLLoader fxmlLoader3 = new FXMLLoader();
             fxmlLoader3.setLocation(getClass().getResource("Video.fxml"));
             AnchorPane anchorPane3 = fxmlLoader3.load();
             videoController videoController3 = fxmlLoader3.getController();
-            videoController3.setDate(videos.get(i));
-            Video video3 = videos.get(i);
+            videoController3.setDate(videos.get(i + 2));
+            Video video3 = videos.get(i + 2);
             anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -458,7 +464,6 @@ public class YouTubeController implements Initializable {
             hBox.getChildren().add(anchorPane3);
             profileContents.getChildren().add(hBox);
         }
-         */
     }
     @FXML
     protected void gotoProfile() throws SQLException, IOException {
@@ -475,6 +480,7 @@ public class YouTubeController implements Initializable {
     //home page functions
     @FXML
     protected void showHomePage() throws IOException, SQLException {
+        hpContents.getChildren().clear();
         if (isLogin) {
             hpSignInButton.setVisible(false);
             signInButtonImage.setVisible(false);
@@ -485,8 +491,7 @@ public class YouTubeController implements Initializable {
             signInButtonImage.setVisible(true);
         }
         homePage.setVisible(true);
-        List<Video> videos = new ArrayList<>();
-        videos = getVideosForHomePages();
+        List<Video> videos = getVideosForHomePages();
         for (int i = 0; i < videos.size() - 2; i += 3) {
             HBox hBox = new HBox();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -591,9 +596,17 @@ public class YouTubeController implements Initializable {
         searchResult.getChildren().clear();
         List<Video> videoList = DatabaseManager.getAllVideos();
         List<Video> selected = new ArrayList<>();
-        for (Video video : videoList) {
-            if (strInStr(videoName, video.getVideoName()))
-                selected.add(video);
+        if (videoName.charAt(0) != '#') {
+            for (Video video : videoList) {
+                if (strInStr(videoName, video.getVideoName()))
+                    selected.add(video);
+            }
+        }
+        else {
+            for (Video video : videoList) {
+                if (strInStr(videoName, video.getCaption()))
+                    selected.add(video);
+            }
         }
         for (Video video: selected) {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -622,15 +635,27 @@ public class YouTubeController implements Initializable {
 
     //play media
     @FXML
+    protected void viewAccountClick() throws SQLException, IOException {
+        mediaPlayerPage.setVisible(false);
+        mediaPlayerController.videoPlayer.pause();
+        showProfile(DatabaseManager.getAccount(videoPlay.getAccountID()));
+    }
+    @FXML
     protected void gotoHomePageFromMP() throws SQLException, IOException {
         mediaPlayerPage.setVisible(false);
+        mediaPlayerVbox.getChildren().clear();
+        mediaPlayerController.videoPlayer.pause();
         showHomePage();
+    }
+    public void addToMpVbox() {
+
     }
     @FXML
     protected void playMedia(Video video) throws SQLException, IOException {
+        videoPlay = video;
         homePage.setVisible(false);
-        if (video.getAccountID() != loginAccount.getAccountID() && isLogin) {
-            DatabaseManager.watchVideo(loginAccount.getAccountID(), video.getAccountID());
+        if (!video.getAccountID().equals(loginAccount.getAccountID()) && isLogin) {
+            DatabaseManager.watchVideo(loginAccount.getAccountID(), video.getVideoID());
         }
 
         mediaPlayerPage.setVisible(true);
@@ -644,6 +669,7 @@ public class YouTubeController implements Initializable {
 
 
         List<Comment> commentList = DatabaseManager.getVideoComments(video.getVideoID());
+        System.out.println(commentList.size());
         for (Comment comment: commentList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("Comment.fxml"));
@@ -706,6 +732,7 @@ public class YouTubeController implements Initializable {
 
     protected List<Video> getVideosForHomePages() throws SQLException {
         List<Video> videos = DatabaseManager.getAllVideos();
+        Collections.reverse(videos);
         List<Video> finalVideos = new ArrayList<>();
         for (Video video: videos) {
             if (finalVideos.size() >= 21)
@@ -716,10 +743,10 @@ public class YouTubeController implements Initializable {
         }
         for (Video video: finalVideos)
             videos.remove(video);
-        while (finalVideos.size() < 21 && videos.size() > 0) {
+        while (finalVideos.size() < 21 && !videos.isEmpty()) {
             Video video = videos.get(0);
             finalVideos.add(video);
-            videos.remove(video);
+            videos.remove(0);
         }
         return finalVideos;
     }

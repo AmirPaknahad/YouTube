@@ -553,7 +553,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <ScrollPane layoutX="140.0" layoutY="235.0" prefHeight="270.0" prefWidth="959.0" style="-fx-background-color: black;">
+            <ScrollPane layoutX="140.0" layoutY="100.0" prefHeight="270.0" prefWidth="959.0" style="-fx-background-color: black;">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="5000.0" style="-fx-background-color: black;">
                      <children>
@@ -704,12 +704,13 @@
             </AnchorPane>
             <ScrollPane layoutX="100.0" layoutY="100.0" prefHeight="620.0" prefWidth="617.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3000.0" prefWidth="617.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3000.0" prefWidth="617.0" style="-fx-background-color: black;">
                      <children>
                         <VBox fx:id="mediaPlayerVbox" prefHeight="0.0" prefWidth="0.0" />
                      </children></AnchorPane>
               </content>
             </ScrollPane>
+            <Button fx:id="viewAccount" layoutX="741.0" layoutY="106.0" mnemonicParsing="false" onAction="#viewAccountClick" styleClass="subscribe_button" stylesheets="@mediaPlayer.css" text="View account" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="profilePage" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" visible="false">

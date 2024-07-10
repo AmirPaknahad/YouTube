@@ -26,7 +26,7 @@
          </image>
       </ImageView>
       <Label fx:id="userName" layoutX="75.0" layoutY="19.0" text="ermia_babaie" textFill="WHITE" />
-      <Button fx:id="likeButton" layoutX="60.0" layoutY="90.0" mnemonicParsing="false" styleClass="like_button" stylesheets="@commentFxml.css">
+      <Button fx:id="likeButton" layoutX="60.0" layoutY="90.0" mnemonicParsing="false" onAction="#likeButtonClick" styleClass="like_button" stylesheets="@commentFxml.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0">
                <image>
@@ -35,7 +35,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="disLikeButton" layoutX="140.0" layoutY="90.0" mnemonicParsing="false" styleClass="like_button" stylesheets="@commentFxml.css">
+      <Button fx:id="disLikeButton" layoutX="140.0" layoutY="90.0" mnemonicParsing="false" onAction="#disLikeButtonClick" styleClass="like_button" stylesheets="@commentFxml.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0">
                <image>

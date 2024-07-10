@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class profileController {
     String videoUrl = "";
     String coverUrl = "";
+    Account account;
     @FXML
     private ImageView profilePic;
     @FXML
@@ -47,7 +49,11 @@ public class profileController {
 
     @FXML
     public void setData(Account account) throws SQLException {
-        profilePic = new ImageView(account.getProfileImageAddress());
+        if (!account.getProfileImageAddress().equals(""))
+            profilePic.setImage(new Image(account.getProfileImageAddress()));
+        if (!DatabaseManager.subscribeStatus(YouTubeController.loginAccount.getAccountID(), account.getAccountID())) {
+            subscribe.setText("Subscribe");
+        }
         userName.setText(account.getUserName());
         subscribers.setText(String.valueOf(DatabaseManager.subscriberNumber(account.getAccountID())) + " Subscribers");
         if (!account.getAccountID().equals(YouTubeController.loginAccount.getAccountID())) {
@@ -106,8 +112,17 @@ public class profileController {
 
     }
     @FXML
-    public void subscribeClick() {
-
+    public void subscribeClick() throws SQLException {
+        if (!YouTubeController.isLogin)
+            return;
+        if (subscribe.getText().equals("Subscribe")) {
+            subscribe.setText("Un Subscribe");
+            DatabaseManager.unSubscribeChannel(YouTubeController.loginAccount.getAccountID(), account.getAccountID());
+        }
+        else {
+            subscribe.setText("Subscribe");
+            DatabaseManager.subscribeChannel(YouTubeController.loginAccount.getAccountID(), account.getAccountID());
+        }
     }
     @FXML
     public void signOutClick() {

@@ -12,7 +12,7 @@
    <children>
       <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="60.0" layoutY="60.0" onMouseClicked="#changeProfile" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../ermia_profile.jpg" />
+            <Image url="@../../../../../../../../youTubeProject/src/main/resources/profile_icon.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="60.0" layoutY="60.0">
@@ -36,11 +36,11 @@
       <Button fx:id="selectVideo" layoutX="24.0" layoutY="320.0" mnemonicParsing="false" onAction="#selectVideoClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Select Video" textFill="WHITE" visible="false" />
       <Button fx:id="selectCover" layoutX="139.0" layoutY="320.0" mnemonicParsing="false" onAction="#selectCoverClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Select cover " textFill="WHITE" visible="false" />
       <TextField fx:id="videoName" layoutX="54.0" layoutY="358.0" promptText="Video's Name" visible="false" />
-      <Button fx:id="newVideoOk" layoutX="225.0" layoutY="359.0" mnemonicParsing="false" text="ok" visible="false" />
+      <Button fx:id="newVideoOk" layoutX="225.0" layoutY="359.0" mnemonicParsing="false" onAction="#uploadOk" text="ok" visible="false" />
       <TextField fx:id="newUserName" layoutX="345.0" layoutY="244.0" promptText="new User Name" visible="false" />
       <TextField fx:id="newPassWord" layoutX="345.0" layoutY="302.0" promptText="new PassWord" visible="false" />
       <Button fx:id="settingOk" layoutX="518.0" layoutY="272.0" mnemonicParsing="false" text="ok" visible="false" />
       <Button fx:id="signOut" layoutX="489.0" layoutY="123.0" mnemonicParsing="false" onAction="#signOutClick" styleClass="subscribe_button" stylesheets="@profile.css" text="Sign out" textFill="#fff9f9" />
-      <TextField fx:id="videoName1" layoutX="54.0" layoutY="398.0" prefHeight="26.0" prefWidth="559.0" promptText="Caption" visible="false" />
+      <TextField fx:id="caption" layoutX="54.0" layoutY="398.0" prefHeight="26.0" prefWidth="559.0" promptText="Caption" visible="false" />
    </children>
 </AnchorPane>

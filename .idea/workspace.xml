@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b134ea5-673d-4e16-a255-74a1fbc11cc5" name="Changes" comment="media player step">
+    <list default="true" id="8b134ea5-673d-4e16-a255-74a1fbc11cc5" name="Changes" comment="final commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTube.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTubeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/YouTubeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/YouTube-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/YouTube-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/commentFxml.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/commentFxml.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/mediaPlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/mediaPlayer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/mediaPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/youtubeproject/mediaPlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/Comment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/youtubeproject/Comment.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +67,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="YouTube" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="YouTube" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.youtubeproject.YouTube" />
       <module name="youTubeProject" />
       <extension name="coverage">
@@ -148,7 +144,31 @@
       <option name="project" value="LOCAL" />
       <updated>1720522408929</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="debugging and add tools">
+      <option name="closed" value="true" />
+      <created>1720561298288</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1720561298288</updated>
+    </task>
+    <task id="LOCAL-00008" summary="debugging and add tools">
+      <option name="closed" value="true" />
+      <created>1720561302650</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720561302650</updated>
+    </task>
+    <task id="LOCAL-00009" summary="final commit">
+      <option name="closed" value="true" />
+      <created>1720603910182</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1720603910182</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -169,6 +189,8 @@
     <MESSAGE value="database updated" />
     <MESSAGE value="kolli taghir" />
     <MESSAGE value="media player step" />
-    <option name="LAST_COMMIT_MESSAGE" value="media player step" />
+    <MESSAGE value="debugging and add tools" />
+    <MESSAGE value="final commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="final commit" />
   </component>
 </project>

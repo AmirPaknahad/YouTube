@@ -135,7 +135,14 @@ public class DatabaseManager {
         }
         return commentList;
     }
-
+    public static void deleteVideo(Video video) throws SQLException {
+        Connection connection = connect();
+        String query = "DELETE FROM videos WHERE videoID = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setObject(1, video.getVideoID());
+        ps.executeUpdate();
+        ps.close();
+    }
     public static void newVideo(UUID videoID, UUID accountID, String videoAddress, String coverAddress, String caption, String videoName, boolean isHide) {
         try (Connection connection2 = connect()) {
             String query = "INSERT INTO videos (videoID, accountID, videoAddress, coverAddress, caption, videoName, isHide) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -228,7 +235,7 @@ public class DatabaseManager {
 
     public static int getLikeVideo(UUID accountID, UUID videoID) throws SQLException {
         Connection connection2 = connect();
-        String query = "SELECT * FROM likeComments WHERE accountID = ? AND videoID = ?";
+        String query = "SELECT * FROM likeVideos WHERE accountID = ? AND videoID = ?";
         PreparedStatement ps = connection2.prepareStatement(query);
         ps.setObject(1, accountID);
         ps.setObject(2, videoID);
@@ -259,11 +266,11 @@ public class DatabaseManager {
 
     public static void unLikeVideo(UUID accountUUID, UUID videoUUID) throws SQLException {
         Connection connection = connect();
-        String query = "DELETE FROM likeVideos (accountID, videoID, likeStatus) VALUES (?, ?, ?)";
+        String query = "DELETE FROM likeVideos WHERE accountID = ? AND videoID = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setObject(1, accountUUID);
         ps.setObject(2, videoUUID);
-        ps.setInt(3, getLikeVideo(accountUUID, videoUUID));
+//        ps.setInt(3, getLikeVideo(accountUUID, videoUUID));
         ps.executeUpdate();
         ps.close();
     }
@@ -283,11 +290,11 @@ public class DatabaseManager {
 
     public static void unLikeComment(UUID accountUUID, UUID commentUUID) throws SQLException {
         Connection connection = connect();
-        String query = "DELETE FROM likeComments (accountID, commentID, likeStatus) VALUES (?, ?, ?)";
+        String query = "DELETE FROM likeComments WHERE accountID = ? AND commentID = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setObject(1, accountUUID);
         ps.setObject(2, commentUUID);
-        ps.setInt(3, getLikeVideo(accountUUID, commentUUID));
+//        ps.setInt(3, getLikeVideo(accountUUID, commentUUID));
         ps.executeUpdate();
         ps.close();
     }
@@ -335,7 +342,7 @@ public class DatabaseManager {
         if (!subscribeStatus(accountUUID, channelUUID))
             return;
         Connection connection = connect();
-        String query = "DELETE FROM subscribers (accountID, channelID) VALUES (?, ?)";
+        String query = "DELETE FROM subscribers WHERE accountID = ? AND channelID = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setObject(1, accountUUID);
         ps.setObject(2, channelUUID);
@@ -364,11 +371,11 @@ public class DatabaseManager {
         ps.executeUpdate();
         ps.close();
     }
-    public static int numberOfView(UUID channelID) throws SQLException {
+    public static int numberOfView(UUID videoID) throws SQLException {
         Connection connection2 = connect();
-        String query = "SELECT * FROM videoView WHERE channelID = ?";
+        String query = "SELECT * FROM videoView WHERE videoID = ?";
         PreparedStatement ps = connection2.prepareStatement(query);
-        ps.setObject(1, channelID);
+        ps.setObject(1, videoID);
         ResultSet rs = ps.executeQuery();
         connection2.close();
         int cnt = 0;

@@ -32,8 +32,14 @@ public class ClientHandler implements Runnable{
                    else if (request.startsWith("get_user_by_user_name:")) {
                         getUserByUserName(request);
                     }
-                   else if (request.startsWith("get_user_by_email:")) {
+                    else if (request.startsWith("get_user_by_email:")) {
                         getUserByEmail(request);
+                    }
+                    else if (request.startsWith("new_comment:")) {
+                        newComment(request);
+                    }
+                    else if (request.startsWith("new_video:")) {
+                        newVideo(request);
                     }
                 }
             }
@@ -152,5 +158,115 @@ public class ClientHandler implements Runnable{
     }
     public void checkConnection() throws IOException {
         out.writeUTF("Ok.");
+    }
+    public void newComment(String req) {
+        String commentID = "";
+        String accountID = "";
+        String videoID = "";
+        String commentText = "";
+        String likeCnt = "";
+        String disLikeCnt = "";
+        int i = 0;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == ' ')
+                break;
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            commentID += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            accountID += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            videoID += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            commentText += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            likeCnt += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            disLikeCnt += req.charAt(i);
+        }
+
+        DatabaseManager.newComment(UUID.fromString(commentID), UUID.fromString(accountID), UUID.fromString(videoID), commentText, Integer.getInteger(likeCnt), Integer.getInteger(disLikeCnt));
+
+    }
+    public void newVideo(String req) {
+        String videoID = "";
+        String accountID = "";
+        String videoAddress = "";
+        String coverAddress = "";
+        String caption = "";
+        String videoName = "";
+        String isHide = "";
+        int i = 0;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == ' ')
+                break;
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            videoID += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            accountID += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            videoAddress += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            coverAddress += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            caption += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            videoName += req.charAt(i);
+        }
+        i++;
+        for (; i < req.length(); i++) {
+            if (req.charAt(i) == '#')
+                break;
+            isHide += req.charAt(i);
+        }
+
+        DatabaseManager.newVideo(UUID.fromString(videoID), UUID.fromString(accountID), videoAddress, coverAddress, caption, videoName, Boolean.getBoolean(isHide));
     }
 }

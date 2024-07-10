@@ -3,6 +3,7 @@ package com.example.youtubeproject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -31,7 +32,10 @@ public class CommentController {
 
     public void setData(Comment comment) throws SQLException {
         this.comment = comment;
-        profilePic = new ImageView(DatabaseManager.getAccount(comment.getAccountID()).getProfileImageAddress());
+        if (!DatabaseManager.getAccount(comment.getAccountID()).getProfileImageAddress().equals(""))
+            profilePic.setImage(new Image(DatabaseManager.getAccount(comment.getAccountID()).getProfileImageAddress()));
+        else
+            profilePic.setImage(new Image("file:/Users/ermiababaie/Documents/project/youTubeProject/src/main/resources/profile_icon.jpg"));
         userName.setText(DatabaseManager.getAccount(comment.getAccountID()).getUserName());
         List<LikeComment> likeCommentList = new ArrayList<>();
         likeCommentList = DatabaseManager.getCommentLikes(comment.getCommentID());
@@ -66,9 +70,9 @@ public class CommentController {
         disLikeNumber.setText(String.valueOf(disLikeNum));
     }
     @FXML
-    public void ikeButtonClick() throws SQLException {
+    public void disLikeButtonClick() throws SQLException {
         if (YouTubeController.isLogin) {
-            DatabaseManager.likeComment(YouTubeController.loginAccount.getAccountID(), comment.getCommentID(), 1);
+            DatabaseManager.likeComment(YouTubeController.loginAccount.getAccountID(), comment.getCommentID(), -1);
         }
         List<LikeComment> likeCommentList = new ArrayList<>();
         likeCommentList = DatabaseManager.getCommentLikes(comment.getCommentID());
